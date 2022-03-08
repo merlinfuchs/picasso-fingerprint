@@ -8,6 +8,8 @@ It can't be used to identify individual devices.
 
 For more information about how this can be used check the white paper.
 
+## [Demo](merlinfuchs.github.io/picasso-fingerprint/)
+
 ## Usage
 
 ```shell
