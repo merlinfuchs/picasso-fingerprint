@@ -38,7 +38,7 @@ fn draw_random_primitive(context: &CanvasRenderingContext2d, height: f64, width:
     set_random_values(context);
     context.begin_path();
 
-    match qrand::gen_range(0u8, 5u8) {
+    match qrand::gen_range(0u8, 8u8) {
         // text
         0 => {
             context.set_font("25px Arial Verdana Helvetica");
@@ -86,6 +86,7 @@ fn draw_random_primitive(context: &CanvasRenderingContext2d, height: f64, width:
                 qrand::gen_range(0., height),
             );
         }
+        // ellipse
         4 => {
             context.ellipse(
                 qrand::gen_range(0., width),
@@ -96,7 +97,36 @@ fn draw_random_primitive(context: &CanvasRenderingContext2d, height: f64, width:
                 qrand::gen_range(0., 2.0 * PI),
                 qrand::gen_range(0., 2.0 * PI),
             )?;
+        },
+        // line
+        5 => {
+            context.move_to(
+                qrand::gen_range(0., width),
+                qrand::gen_range(0., height),
+            );
+            context.line_to(
+                qrand::gen_range(0., width),
+                qrand::gen_range(0., height),
+            );
         }
+        // rect
+        6 => {
+            context.rect(
+                qrand::gen_range(0., width),
+                qrand::gen_range(0., height),
+                qrand::gen_range(0., width / 2.0),
+                qrand::gen_range(0., height / 2.0)
+            );
+        },
+        // filled rect
+        7 => {
+            context.fill_rect(
+                qrand::gen_range(0., width),
+                qrand::gen_range(0., height),
+                qrand::gen_range(0., width / 2.0),
+                qrand::gen_range(0., height / 2.0)
+            );
+        },
         _ => {}
     }
 
