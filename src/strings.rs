@@ -18,7 +18,7 @@ pub fn get_random_color() -> &'static str {
     basically the same as
     format!("#{:X}", qrand::gen_range(0, 0xFFFFFF)
      */
-    let mut buffer = unsafe { &mut STRING_BUFFER[..7] };
+    let buffer = unsafe { &mut STRING_BUFFER[..7] };
 
     buffer[0] = b'#';
     let value = qrand::gen_range(0, 0xFFFFFF);
@@ -28,16 +28,16 @@ pub fn get_random_color() -> &'static str {
 }
 
 pub fn get_random_string(length: usize) -> &'static str {
-    let mut buffer = unsafe { &mut STRING_BUFFER[..length] };
-    for i in 0..buffer.len() {
-        buffer[i] = qrand::gen_range(b'0', b'z');
+    let buffer = unsafe { &mut STRING_BUFFER[..length] };
+    for byte in buffer {
+        *byte = qrand::gen_range(b'0', b'z');
     }
 
     unsafe { str::from_utf8_unchecked(&STRING_BUFFER[..length]) }
 }
 
 pub fn format_pixel_value(pixel: u32) -> &'static str {
-    let mut buffer = unsafe { &mut STRING_BUFFER };
+    let buffer = unsafe { &mut STRING_BUFFER };
 
     buffer[STRING_BUFFER_SIZE - 2] = b'p';
     buffer[STRING_BUFFER_SIZE - 1] = b'x';

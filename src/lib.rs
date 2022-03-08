@@ -3,7 +3,6 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use quad_rand as qrand;
 use web_sys::{CanvasRenderingContext2d};
-use numtoa::NumToA;
 use std::str;
 use std::f64::consts::PI;
 
@@ -110,9 +109,9 @@ pub fn make_fingerprint(seed: u32, rounds: u32, height: u32, width: u32) -> Resu
     qrand::srand(seed as u64);
 
     let document = web_sys::window()
-        .ok_or(JsValue::from_str("window unavailable"))?
+        .ok_or_else(|| JsValue::from_str("window unavailable"))?
         .document()
-        .ok_or(JsValue::from_str("document unavailable"))?;
+        .ok_or_else(|| JsValue::from_str("document unavailable"))?;
 
     let canvas = document.create_element("canvas")?;
 
@@ -133,7 +132,7 @@ pub fn make_fingerprint(seed: u32, rounds: u32, height: u32, width: u32) -> Resu
 
     let context = canvas
         .get_context("2d")?
-        .ok_or(JsValue::from_str("2d canvas context unavailable"))?
+        .ok_or_else(|| JsValue::from_str("2d canvas context unavailable"))?
         .dyn_into::<web_sys::CanvasRenderingContext2d>()
         .map_err(|_| JsValue::from_str("2d canvas rendering context unavailable"))?;
 
