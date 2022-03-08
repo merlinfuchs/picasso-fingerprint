@@ -1,0 +1,1 @@
+npm run build && mv -v ./dist ../docs
